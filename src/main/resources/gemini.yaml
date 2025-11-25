@@ -1,0 +1,120 @@
+openapi: 3.0.3
+info:
+  title: Google Gemini API
+  version: 1.0.0
+  description: "Wrapper for Gemini 2.5 Flash content generation API"
+
+servers:
+  - url: https://generativelanguage.googleapis.com/v1beta
+
+paths:
+  /models/gemini-2.5-flash:generateContent:
+    post:
+      operationId: generateContent
+      summary: Generate content with Gemini 2.5 Flash
+      description: Sends a prompt to Gemini 2.5 Flash and returns generated content.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                contents:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      parts:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            text:
+                              type: string
+                              example: "turn off the living room"
+      responses:
+        '200':
+          description: Successful content generation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  candidates:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        content:
+                          type: object
+                          properties:
+                            parts:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  text:
+                                    type: string
+                                    example: "I do not know."
+                            role:
+                              type: string
+                              example: "model"
+                        finishReason:
+                          type: string
+                          example: "STOP"
+                        index:
+                          type: integer
+                          example: 0
+
+                  usageMetadata:
+                    type: object
+                    properties:
+                      promptTokenCount:
+                        type: integer
+                        example: 34
+                      candidatesTokenCount:
+                        type: integer
+                        example: 5
+                      totalTokenCount:
+                        type: integer
+                        example: 401
+                      promptTokensDetails:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            modality:
+                              type: string
+                              example: "TEXT"
+                            tokenCount:
+                              type: integer
+                              example: 34
+                      thoughtsTokenCount:
+                        type: integer
+                        example: 362
+
+                  modelVersion:
+                    type: string
+                    example: "gemini-2.5-flash"
+
+                  responseId:
+                    type: string
+                    example: "lswIaeWICdLOxN8Pu4P04Qs"
+
+        '400':
+          description: Invalid request
+        '401':
+          description: Unauthorized / Invalid API key
+        '500':
+          description: Server error
+
+      security:
+        - apiKey: []
+
+components:
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      name: x-goog-api-key
+      in: header

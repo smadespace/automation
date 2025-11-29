@@ -20,6 +20,7 @@ class AutomationApplicationTests {
 
 	@Test
 	void contextLoads() throws Exception {
+        //should return unauthorized if JWT is not present.
         ResultActions actions = mockMvc.perform(get("/"))
                 .andExpect(status().is(HttpStatus.UNAUTHORIZED.value()));
     }

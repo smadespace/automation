@@ -1,10 +1,8 @@
 package home.autoai.automation.controller;
 
 import home.autoai.automation.api.QuestionApi;
-
 import home.autoai.automation.model.GetAllAnswers200Response;
 import home.autoai.automation.model.GetAllAnswersRequest;
-
 import home.autoai.automation.service.AggregatorService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
@@ -28,6 +26,7 @@ public class QuestionApiImp implements QuestionApi {
 
 
     public QuestionApiImp(AggregatorService aggregatorService, HttpServletRequest request) {
+
         this.aggregatorService = aggregatorService;
         this.request = request;
     }
@@ -40,7 +39,7 @@ public class QuestionApiImp implements QuestionApi {
 
 
     @Override
-    public  ResponseEntity<GetAllAnswers200Response> getAllAnswers(GetAllAnswersRequest getAnswerRequest) {
+    public ResponseEntity<GetAllAnswers200Response> getAllAnswers(GetAllAnswersRequest getAnswerRequest) {
         var clientInfo = getRequest().get();
         LOG.info("Session IP of the client: {} ", (request.getRemoteAddr().equals("0:0:0:0:0:0:0:1") ?
                 "localhost" : request.getRemoteAddr()));

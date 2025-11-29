@@ -1,11 +1,12 @@
 package home.autoai.automation.service.impl;
 
 
+import home.autoai.automation.kafka.KafkaProducer;
+import home.autoai.automation.kafka.dto.RequestLogMessage;
 import home.autoai.automation.model.GetAllAnswers200Response;
 import home.autoai.automation.model.GetAllAnswersRequest;
 import home.autoai.automation.service.AggregatorService;
 import home.autoai.automation.service.GeminiService;
-import io.swagger.v3.oas.annotations.servers.Server;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -18,9 +19,11 @@ public class AggregatorServiceImp implements AggregatorService {
 
 
     private final GeminiService geminiService;
+    private final KafkaProducer kafkaProducer;
 
-    public AggregatorServiceImp(GeminiService geminiService) {
+    public AggregatorServiceImp(KafkaProducer kafkaProducer,GeminiService geminiService) {
         this.geminiService = geminiService;
+        this.kafkaProducer = kafkaProducer;
     }
 
     @Override
@@ -34,6 +37,7 @@ public class AggregatorServiceImp implements AggregatorService {
 
         GetAllAnswers200Response getAllAnswers200Response = new GetAllAnswers200Response();
         getAllAnswers200Response.setAnswer(answerBuilder.toString());
+        kafkaProducer.sendMsg(new RequestLogMessage(getAllAnswers200Response.toString()));
         return getAllAnswers200Response;
     }
 }

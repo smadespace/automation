@@ -2,19 +2,19 @@ package home.autoai.automation;
 
 
 import home.autoai.automation.exception.GeminiApiException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 
-
+@Log4j2
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
+
     public record ErrorResponse(String error, String message) {}
-    private static final Logger LOG = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+
 
     // Not secure !
     @ExceptionHandler(GeminiApiException.class)

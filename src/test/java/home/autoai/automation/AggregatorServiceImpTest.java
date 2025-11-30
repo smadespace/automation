@@ -1,5 +1,5 @@
 package home.autoai.automation;
-import home.autoai.automation.kafka.KafkaProducer;
+import home.autoai.automation.service.KafkaProducerService;
 import home.autoai.automation.model.GetAllAnswers200Response;
 import home.autoai.automation.model.GetAllAnswersRequest;
 import home.autoai.automation.service.GeminiService;
@@ -17,7 +17,7 @@ class AggregatorServiceImpTest {
         // Arrange
         GeminiService geminiServiceMock = mock(GeminiService.class);
         //not cover kafka!
-        KafkaProducer kafkaProducer = mock(KafkaProducer.class);
+        KafkaProducerService kafkaProducer = mock(KafkaProducerService.class);
         AggregatorServiceImp service = new AggregatorServiceImp(kafkaProducer,geminiServiceMock);
 
         GetAllAnswersRequest request = new GetAllAnswersRequest();

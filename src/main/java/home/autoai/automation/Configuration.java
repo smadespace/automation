@@ -1,7 +1,7 @@
 package home.autoai.automation;
 
 
-import home.autoai.automation.kafka.dto.RequestLogMessage;
+import home.autoai.automation.dto.RequestLogMessage;
 import org.apache.kafka.clients.admin.NewTopic;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.openapitools.client.ApiClient;

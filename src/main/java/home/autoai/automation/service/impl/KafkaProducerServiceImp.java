@@ -1,22 +1,21 @@
-package home.autoai.automation.kafka.impl;
+package home.autoai.automation.service.impl;
 
-import home.autoai.automation.kafka.KafkaProducer;
-import home.autoai.automation.kafka.dto.RequestLogMessage;
-import home.autoai.automation.model.GetAllAnswers200Response;
+import home.autoai.automation.service.KafkaProducerService;
+import home.autoai.automation.dto.RequestLogMessage;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 
-@Component
-public class KafkaProducerImp implements KafkaProducer {
+@Service
+public class KafkaProducerServiceImp implements KafkaProducerService {
 
     @Value("${kafka.topic}")
     private String kafkaTopic;
 
     private final KafkaTemplate<String, RequestLogMessage> kafkaTemplate;
 
-    public KafkaProducerImp(KafkaTemplate<String, RequestLogMessage> kafkaTemplate) {
+    public KafkaProducerServiceImp(KafkaTemplate<String, RequestLogMessage> kafkaTemplate) {
         this.kafkaTemplate = kafkaTemplate;
     }
     @Override

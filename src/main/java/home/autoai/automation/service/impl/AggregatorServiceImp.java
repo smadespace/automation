@@ -1,27 +1,26 @@
 package home.autoai.automation.service.impl;
 
 
-import home.autoai.automation.kafka.KafkaProducer;
-import home.autoai.automation.kafka.dto.RequestLogMessage;
+import home.autoai.automation.service.KafkaProducerService;
+import home.autoai.automation.dto.RequestLogMessage;
 import home.autoai.automation.model.GetAllAnswers200Response;
 import home.autoai.automation.model.GetAllAnswersRequest;
 import home.autoai.automation.service.AggregatorService;
 import home.autoai.automation.service.GeminiService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
-
 import java.util.concurrent.CompletableFuture;
 
+
+@Log4j2
 @Service
 public class AggregatorServiceImp implements AggregatorService {
-    private static final Logger LOG = LoggerFactory.getLogger(AggregatorServiceImp.class);
 
 
     private final GeminiService geminiService;
-    private final KafkaProducer kafkaProducer;
+    private final KafkaProducerService kafkaProducer;
 
-    public AggregatorServiceImp(KafkaProducer kafkaProducer,GeminiService geminiService) {
+    public AggregatorServiceImp(KafkaProducerService kafkaProducer, GeminiService geminiService) {
         this.geminiService = geminiService;
         this.kafkaProducer = kafkaProducer;
     }
